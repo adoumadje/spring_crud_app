@@ -16,11 +16,13 @@ public class User {
     @Column(length = 15, nullable = false)
     private String password;
 
-    @Column(length = 45, nullable = false, name = "first name")
+    @Column(length = 45, nullable = false, name = "firstname")
     private String firstname;
 
-    @Column(length = 45, nullable = false, name = "last name")
+    @Column(length = 45, nullable = false, name = "lastname")
     private String lastname;
+
+    private boolean enabled;
 
     public Integer getId() {
         return id;
@@ -60,5 +62,24 @@ public class User {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                '}';
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }
