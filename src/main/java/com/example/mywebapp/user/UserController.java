@@ -34,7 +34,7 @@ public class UserController {
     public String saveUser(User user, RedirectAttributes ra) {
         service.save(user);
         ra.addFlashAttribute("message",
-                "The user has been added successfully");
+                "The user has been saved successfully");
 
         return "redirect:/users";
     }
@@ -49,9 +49,21 @@ public class UserController {
                     "Edit User (ID: "+id+")");
             return "user_form";
         } catch (UserNotFoundException e) {
-            ra.addFlashAttribute("message",
-                    "The user has been saved successfully");
+            ra.addFlashAttribute("message", e.getMessage());
             return "redirect:/users";
         }
+    }
+
+    @GetMapping("/users/delete/{id}")
+    public String showEditForm(@PathVariable("id") Integer id, RedirectAttributes ra) {
+        try {
+            service.delete(id);
+            ra.addFlashAttribute("message",
+                    "The user ID "+id+" has been deleted.");
+        } catch (UserNotFoundException e) {
+            ra.addFlashAttribute("message", e.getMessage());
+        }
+
+        return "redirect:/users";
     }
 }
